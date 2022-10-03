@@ -1,4 +1,9 @@
 import * as express from 'express';
+import ControllerCreateUser from './controllers/createUser';
+import ServiceCreateUser from './services/createUser';
+import Users from './database/models/users';
+
+const useController = new ControllerCreateUser(new ServiceCreateUser(Users));
 
 class App {
   public app: express.Express;
@@ -10,6 +15,10 @@ class App {
 
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
+
+    this.app.post('/login', (req, res) => {
+      useController.create(req, res);
+    });
   }
 
   private config():void {
