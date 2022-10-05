@@ -17,7 +17,7 @@ class App {
     this.app.get('/', (req, res) => res.json({ ok: true }));
 
     this.app.post('/login', (req, res) => {
-      useController.create(req, res);
+      useController.login(req, res);
     });
   }
 
