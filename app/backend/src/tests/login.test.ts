@@ -17,16 +17,14 @@ const user = {
 
 describe('/login', () => {
   before(() => {
-    sinon.stub(users, 'create').resolves({id: 1, ...user} as users);
+    sinon.stub(users, 'findOne').resolves({id: 1, ...user} as users);
   });
   after(() => {
     sinon.restore();
   });
   it('POST', async () => {
-    const response = await (await chai.request(app).post('/login').send(user)).header({'token': 'aaaaaaaa'});
+    const response = await (await chai.request(app).post('/login').send(user));
 
     chai.expect(response.status).to.equal(200);
-
-    expect(false).to.be.eq(true);
   });
 });
