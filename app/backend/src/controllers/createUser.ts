@@ -1,6 +1,12 @@
 import { Request, Response } from 'express';
+import * as jwt from 'jsonwebtoken';
+import * as dotenv from 'dotenv';
 import IUser from '../interfaces/IUser';
 import ServiceCreateUser from '../services/createUser';
+
+dotenv.config();
+
+// const secret = process.env.JWT_SECRET;
 
 export default class ControllerCreateUser {
   constructor(private CreateUser: ServiceCreateUser) {}
@@ -8,9 +14,11 @@ export default class ControllerCreateUser {
   async create(req: Request, res: Response) {
     const { email, password } = req.body;
     const body: IUser = { email, password };
-    const { code, message, data } = await this.CreateUser.create(body);
+    const { code, message } = await this.CreateUser.create(body);
 
-    if (message) return res.status(code).json({ message });
-    return res.status(code).json({ message: data });
+    if (message) res.status(code).json({ message });
+    const token = jwt.sign(body.password, 'vascodagama');
+
+    res.status(code).json({ token });
   }
 }

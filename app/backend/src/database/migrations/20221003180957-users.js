@@ -8,7 +8,6 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       username: {
-        allowNull: false,
         type: Sequelize.STRING(30),
       },
       role: {

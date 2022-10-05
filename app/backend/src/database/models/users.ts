@@ -17,7 +17,6 @@ Users.init({
     type: INTEGER,
   },
   username: {
-    allowNull: false,
     type: STRING(30),
   },
   role: {
