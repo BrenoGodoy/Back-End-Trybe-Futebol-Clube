@@ -15,6 +15,16 @@ const user = {
   password: '1234567',
 }
 
+const noEmailUser = {
+  email: '',
+  password: '1234567',
+}
+
+const noPasswordUser = {
+  email: 'teste@gmail.com',
+  password: '',
+}
+
 describe('/login', () => {
   before(() => {
     sinon.stub(users, 'findOne').resolves({id: 1, ...user} as users);
@@ -23,8 +33,18 @@ describe('/login', () => {
     sinon.restore();
   });
   it('POST', async () => {
-    const response = await (await chai.request(app).post('/login').send(user));
+    const response = (await chai.request(app).post('/login').send(user));
 
     chai.expect(response.status).to.equal(200);
+  });
+  it('POST sem email no body', async () => {
+    const response = (await chai.request(app).post('/login').send(noEmailUser));
+
+    chai.expect(response.status).to.equal(400);
+  });
+  it('POST sem password no body', async () => {
+    const response = (await chai.request(app).post('/login').send(noPasswordUser));
+
+    chai.expect(response.status).to.equal(400);
   });
 });

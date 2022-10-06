@@ -7,6 +7,7 @@ export default class ControllerCreateUser {
 
   async login(req: Request, res: Response) {
     const { email, password } = req.body;
+
     const body: IUser = { email, password };
     const { code, message, token } = await this.CreateUser.login(body);
 

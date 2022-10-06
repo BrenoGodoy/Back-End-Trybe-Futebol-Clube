@@ -1,10 +1,13 @@
-import * as jwt from 'jsonwebtoken';
+import { sign } from 'jsonwebtoken';
 import 'dotenv/config';
 
 const secret = process.env.JWT_SECRET || 'vascodagama';
 
 const generateToken = (pass: string) => {
-  const token = jwt.sign(pass, secret);
+  const jwtConfig = {
+    expiresIn: '1d',
+  };
+  const token = sign({ pass }, secret, jwtConfig);
   return token;
 };
 

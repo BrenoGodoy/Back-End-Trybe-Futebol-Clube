@@ -8,7 +8,7 @@ export default class ServiceCreateUser {
   async login(body: IUser) {
     const response = await this.usersModel.findOne({ where: { email: body.email } });
 
-    if (!response) return { code: 400, message: 'usuário inexistente!' };
+    if (!response) return { code: 401, message: 'Incorrect email or password' };
 
     const token = generateToken(body.password);
     return { code: 200, token };
