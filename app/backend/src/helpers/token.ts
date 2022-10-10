@@ -3,8 +3,8 @@ import 'dotenv/config';
 
 const secret = 'vascodagama';
 
-const generateToken = (pass: string) => {
-  const token = sign({ pass }, secret);
+const generateToken = (pass: string, role: string) => {
+  const token = sign({ pass, role }, secret);
   return token;
 };
 

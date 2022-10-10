@@ -10,7 +10,7 @@ export default class ServiceCreateUser {
 
     if (!response) return { code: 401, message: 'Incorrect email or password' };
 
-    const token = generateToken(body.password);
+    const token = generateToken(body.password, response.role);
     return { code: 200, token };
   }
 }

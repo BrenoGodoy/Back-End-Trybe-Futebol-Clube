@@ -3,8 +3,11 @@ import ControllerCreateUser from './controllers/createUser';
 import ServiceCreateUser from './services/createUser';
 import Users from './database/models/users';
 import loginValidation from './middlewares/loginValidation';
+import ControllerLoginValidate from './controllers/loginValidate';
+import ServiceLoginValidate from './services/loginValidate';
 
 const useController = new ControllerCreateUser(new ServiceCreateUser(Users));
+const loginValidate = new ControllerLoginValidate(new ServiceLoginValidate(Users));
 
 class App {
   public app: express.Express;
@@ -19,6 +22,10 @@ class App {
 
     this.app.post('/login', loginValidation, (req, res) => {
       useController.login(req, res);
+    });
+
+    this.app.get('/login/validate', (req, res) => {
+      loginValidate.validate(req, res);
     });
   }
 
