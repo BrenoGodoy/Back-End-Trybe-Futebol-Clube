@@ -11,8 +11,8 @@ export default class ControllerCreateUser {
     const body: IUser = { email, password };
     const { code, message, token } = await this.CreateUser.login(body);
 
-    if (message) res.status(code).json({ message });
+    if (message) return res.status(code).json({ message });
 
-    res.status(code).json({ token });
+    return res.status(code).json({ token });
   }
 }

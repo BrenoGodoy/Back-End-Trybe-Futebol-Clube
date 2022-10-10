@@ -4,10 +4,7 @@ import 'dotenv/config';
 const secret = process.env.JWT_SECRET || 'vascodagama';
 
 const generateToken = (pass: string) => {
-  const jwtConfig = {
-    expiresIn: '1d',
-  };
-  const token = sign({ pass }, secret, jwtConfig);
+  const token = sign({ pass }, secret);
   return token;
 };
 
