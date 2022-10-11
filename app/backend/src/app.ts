@@ -35,6 +35,10 @@ class App {
     this.app.get('/teams', (req, res) => {
       teams.getAll(req, res);
     });
+
+    this.app.get('/teams/:id', (req, res) => {
+      teams.getOne(req, res);
+    });
   }
 
   private config():void {

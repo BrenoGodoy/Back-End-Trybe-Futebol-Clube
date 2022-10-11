@@ -9,4 +9,11 @@ export default class ServiceTeams {
 
     return { code: 200, response };
   }
+
+  async getOne(id: string) {
+    const response = await this.model.findOne({ where: { id } });
+    if (!response) return { code: 400, message: 'ERRO!' };
+
+    return { code: 200, response };
+  }
 }
