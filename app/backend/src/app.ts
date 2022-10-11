@@ -5,9 +5,13 @@ import Users from './database/models/users';
 import loginValidation from './middlewares/loginValidation';
 import ControllerLoginValidate from './controllers/loginValidate';
 import ServiceLoginValidate from './services/loginValidate';
+import ControllerTeams from './controllers/teams';
+import ServiceTeams from './services/teams';
+import Teams from './database/models/teams';
 
 const useController = new ControllerCreateUser(new ServiceCreateUser(Users));
 const loginValidate = new ControllerLoginValidate(new ServiceLoginValidate(Users));
+const teams = new ControllerTeams(new ServiceTeams(Teams));
 
 class App {
   public app: express.Express;
@@ -26,6 +30,10 @@ class App {
 
     this.app.get('/login/validate', (req, res) => {
       loginValidate.validate(req, res);
+    });
+
+    this.app.get('/teams', (req, res) => {
+      teams.getAll(req, res);
     });
   }
 
