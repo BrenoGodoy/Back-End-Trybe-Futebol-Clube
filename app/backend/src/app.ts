@@ -8,10 +8,14 @@ import ServiceLoginValidate from './services/loginValidate';
 import ControllerTeams from './controllers/teams';
 import ServiceTeams from './services/teams';
 import Teams from './database/models/teams';
+import ControllerMatches from './controllers/matches';
+import ServiceMatches from './services/matches';
+import Matches from './database/models/matches';
 
 const useController = new ControllerCreateUser(new ServiceCreateUser(Users));
 const loginValidate = new ControllerLoginValidate(new ServiceLoginValidate(Users));
 const teams = new ControllerTeams(new ServiceTeams(Teams));
+const matches = new ControllerMatches(new ServiceMatches(Matches));
 
 class App {
   public app: express.Express;
@@ -38,6 +42,10 @@ class App {
 
     this.app.get('/teams/:id', (req, res) => {
       teams.getOne(req, res);
+    });
+
+    this.app.get('/matches', (req, res) => {
+      matches.getAll(req, res);
     });
   }
 
