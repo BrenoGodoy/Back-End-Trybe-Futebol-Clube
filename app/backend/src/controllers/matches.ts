@@ -28,6 +28,6 @@ export default class ControllerMatches {
 
     if (message) return res.status(code).json({ message });
 
-    return res.status(code).json({ response });
+    return res.status(code).json(response);
   }
 }

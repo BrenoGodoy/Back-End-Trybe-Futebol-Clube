@@ -20,6 +20,7 @@ const matches = new ControllerMatches(new ServiceMatches(Matches));
 class App {
   public app: express.Express;
 
+  // eslint-disable-next-line max-lines-per-function
   constructor() {
     this.app = express();
 
@@ -45,6 +46,10 @@ class App {
 
     this.app.get('/matches', (req, res) => {
       matches.getAll(req, res);
+    });
+
+    this.app.post('/matches', (req, res) => {
+      matches.createMatch(req, res);
     });
   }
 
