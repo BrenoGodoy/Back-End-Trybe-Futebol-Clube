@@ -1,6 +1,13 @@
 import Teams from '../database/models/teams';
 import Matches from '../database/models/matches';
 
+interface IMatch {
+  homeTeam: number;
+  homeTeamGoals: number;
+  awayTeamGoals: number;
+  inProgress: boolean;
+}
+
 export default class ServiceMatches {
   constructor(private model: typeof Matches) {}
 
@@ -20,5 +27,12 @@ export default class ServiceMatches {
     if (!response) return { code: 400, message: 'ERRO!' };
 
     return { code: 200, response };
+  }
+
+  async createMatch(body: IMatch) {
+    const response = await this.model.create(body);
+    if (!response) return { code: 400, message: 'ERRO!' };
+
+    return { code: 201, response };
   }
 }
