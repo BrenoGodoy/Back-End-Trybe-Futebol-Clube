@@ -47,4 +47,8 @@ router.patch('/matches/:id/finish', (req, res) => {
   matches.finish(req, res);
 });
 
+router.patch('/matches/:id', (req, res) => {
+  matches.addGoals(req, res);
+});
+
 export default router;

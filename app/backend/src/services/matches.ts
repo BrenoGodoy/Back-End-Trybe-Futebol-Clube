@@ -9,6 +9,11 @@ interface IMatch {
   inProgress: boolean;
 }
 
+interface Iupdate {
+  homeTeamGoals: number;
+  awayTeamGoals: number;
+}
+
 export default class ServiceMatches {
   constructor(private model: typeof Matches) {}
 
@@ -46,6 +51,14 @@ export default class ServiceMatches {
   async finish(id: number) {
     const response = await this.model.update({ inProgress: false }, { where: { id } });
     if (!response) return { code: 400, erro: 'ERRO!' };
+
+    return { code: 200 };
+  }
+
+  async addGoals(body: Iupdate, id: string) {
+    const { homeTeamGoals, awayTeamGoals } = body;
+    const response = await this.model.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+    if (!response) return { code: 400, message: 'ERRO!' };
 
     return { code: 200 };
   }

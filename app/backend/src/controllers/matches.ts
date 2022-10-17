@@ -56,4 +56,13 @@ export default class ControllerMatches {
 
     return res.status(code).json({ message: 'finished' });
   }
+
+  async addGoals(req: Request, res: Response) {
+    const { id } = req.params;
+    const { code, message } = await this.matches.addGoals(req.body, id);
+
+    if (message) return res.status(code).json({ message });
+
+    return res.status(code).json({ response: 'CONCLUÍDO!' });
+  }
 }
