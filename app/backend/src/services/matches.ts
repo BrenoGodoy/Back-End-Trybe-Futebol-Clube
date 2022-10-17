@@ -35,4 +35,11 @@ export default class ServiceMatches {
 
     return { code: 201, response };
   }
+
+  async finish(id: number) {
+    const response = await this.model.update({ inProgress: false }, { where: { id } });
+    if (!response) return { code: 400, message: 'ERRO!' };
+
+    return { code: 200 };
+  }
 }

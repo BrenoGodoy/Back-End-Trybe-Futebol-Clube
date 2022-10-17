@@ -43,4 +43,8 @@ router.post('/matches', (req, res) => {
   matches.createMatch(req, res);
 });
 
+router.patch('/matches/:id/finish', (req, res) => {
+  matches.finish(req, res);
+});
+
 export default router;

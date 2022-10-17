@@ -15,6 +15,12 @@ export default class ControllerMatches {
 
   async createMatch(req: Request, res: Response) {
     const { authorization } = req.headers;
+    const { homeTeam, awayTeam } = req.body;
+
+    if (homeTeam === awayTeam) {
+      return res
+        .status(401).json({ message: 'It is not possible to create a match with two equal teams' });
+    }
 
     if (!authorization) {
       return res.status(401).json({ message: 'Token não informado.' });
@@ -29,5 +35,15 @@ export default class ControllerMatches {
     if (message) return res.status(code).json({ message });
 
     return res.status(code).json(response);
+  }
+
+  async finish(req: Request, res: Response) {
+    const { id } = req.params;
+    const numberId = Number(id);
+    const { code, message } = await this.matches.finish(numberId);
+
+    if (message) return res.status(code).json({ message });
+
+    return res.status(code).json({ message: 'finished' });
   }
 }

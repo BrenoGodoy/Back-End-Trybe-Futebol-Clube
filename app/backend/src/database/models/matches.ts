@@ -47,7 +47,6 @@ Matches.init({
     type: INTEGER,
   },
   inProgress: {
-    allowNull: false,
     type: INTEGER,
   },
 }, {
