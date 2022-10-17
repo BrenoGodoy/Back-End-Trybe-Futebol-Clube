@@ -27,7 +27,7 @@ export default class ControllerMatches {
     }
 
     verify(authorization, 'vascodagama', (err) => {
-      if (err) { return res.status(500).json({ message: 'Token inválido.' }); }
+      if (err) { return res.status(401).json({ message: 'Token must be a valid token' }); }
     });
 
     const { code, response, message } = await this.matches.createMatch(req.body);
@@ -39,10 +39,20 @@ export default class ControllerMatches {
 
   async finish(req: Request, res: Response) {
     const { id } = req.params;
-    const numberId = Number(id);
-    const { code, message } = await this.matches.finish(numberId);
+    const { authorization } = req.headers;
 
-    if (message) return res.status(code).json({ message });
+    if (!authorization) {
+      return res.status(401).json({ message: 'Token não informado.' });
+    }
+
+    verify(authorization, 'vascodagama', (err) => {
+      if (err) { return res.status(500).json({ message: 'Token inválido.' }); }
+    });
+
+    const numberId = Number(id);
+    const { code, erro } = await this.matches.finish(numberId);
+
+    if (erro) return res.status(code).json({ erro });
 
     return res.status(code).json({ message: 'finished' });
   }

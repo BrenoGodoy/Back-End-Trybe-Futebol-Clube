@@ -4,6 +4,7 @@ import Matches from '../database/models/matches';
 interface IMatch {
   homeTeam: number;
   homeTeamGoals: number;
+  awayTeam: number;
   awayTeamGoals: number;
   inProgress: boolean;
 }
@@ -31,6 +32,12 @@ export default class ServiceMatches {
 
   async createMatch(body: IMatch) {
     const response = await this.model.create(body);
+    const homeTeam = await Teams.findByPk(body.homeTeam);
+    const awayTeam = await Teams.findByPk(body.awayTeam);
+
+    if (!homeTeam || !awayTeam) {
+      return { code: 404, message: 'There is no team with such id!' };
+    }
     if (!response) return { code: 400, message: 'ERRO!' };
 
     return { code: 201, response };
@@ -38,7 +45,7 @@ export default class ServiceMatches {
 
   async finish(id: number) {
     const response = await this.model.update({ inProgress: false }, { where: { id } });
-    if (!response) return { code: 400, message: 'ERRO!' };
+    if (!response) return { code: 400, erro: 'ERRO!' };
 
     return { code: 200 };
   }
