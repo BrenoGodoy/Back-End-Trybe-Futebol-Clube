@@ -1,21 +1,21 @@
 import * as express from 'express';
-import ControllerCreateUser from './controllers/createUser';
-import ServiceCreateUser from './services/createUser';
-import Users from './database/models/users';
-import loginValidation from './middlewares/loginValidation';
-import ControllerLoginValidate from './controllers/loginValidate';
-import ServiceLoginValidate from './services/loginValidate';
-import ControllerTeams from './controllers/teams';
-import ServiceTeams from './services/teams';
-import Teams from './database/models/teams';
-import ControllerMatches from './controllers/matches';
-import ServiceMatches from './services/matches';
-import Matches from './database/models/matches';
-
-const useController = new ControllerCreateUser(new ServiceCreateUser(Users));
-const loginValidate = new ControllerLoginValidate(new ServiceLoginValidate(Users));
-const teams = new ControllerTeams(new ServiceTeams(Teams));
-const matches = new ControllerMatches(new ServiceMatches(Matches));
+// import ControllerCreateUser from './controllers/createUser';
+// import ServiceCreateUser from './services/createUser';
+// import Users from './database/models/users';
+// import loginValidation from './middlewares/loginValidation';
+// import ControllerLoginValidate from './controllers/loginValidate';
+// import ServiceLoginValidate from './services/loginValidate';
+// import ControllerTeams from './controllers/teams';
+// import ServiceTeams from './services/teams';
+// import Teams from './database/models/teams';
+// import ControllerMatches from './controllers/matches';
+// import ServiceMatches from './services/matches';
+// import Matches from './database/models/matches';
+import LoginRoute from './routers';
+// const useController = new ControllerCreateUser(new ServiceCreateUser(Users));
+// const loginValidate = new ControllerLoginValidate(new ServiceLoginValidate(Users));
+// const teams = new ControllerTeams(new ServiceTeams(Teams));
+// const matches = new ControllerMatches(new ServiceMatches(Matches));
 
 class App {
   public app: express.Express;
@@ -28,29 +28,30 @@ class App {
 
     this.app.get('/', (req, res) => res.json({ ok: true }));
 
-    this.app.post('/login', loginValidation, (req, res) => {
-      useController.login(req, res);
-    });
+    this.app.use(LoginRoute);
+    // this.app.post('/login', loginValidation, (req, res) => {
+    //   useController.login(req, res);
+    // });
 
-    this.app.get('/login/validate', (req, res) => {
-      loginValidate.validate(req, res);
-    });
+    // this.app.get('/login/validate', (req, res) => {
+    //   loginValidate.validate(req, res);
+    // });
 
-    this.app.get('/teams', (req, res) => {
-      teams.getAll(req, res);
-    });
+    // this.app.get('/teams', (req, res) => {
+    //   teams.getAll(req, res);
+    // });
 
-    this.app.get('/teams/:id', (req, res) => {
-      teams.getOne(req, res);
-    });
+    // this.app.get('/teams/:id', (req, res) => {
+    //   teams.getOne(req, res);
+    // });
 
-    this.app.get('/matches', (req, res) => {
-      matches.getAll(req, res);
-    });
+    // this.app.get('/matches', (req, res) => {
+    //   matches.getAll(req, res);
+    // });
 
-    this.app.post('/matches', (req, res) => {
-      matches.createMatch(req, res);
-    });
+    // this.app.post('/matches', (req, res) => {
+    //   matches.createMatch(req, res);
+    // });
   }
 
   private config():void {
