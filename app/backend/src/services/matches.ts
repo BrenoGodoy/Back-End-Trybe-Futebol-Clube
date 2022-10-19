@@ -37,6 +37,9 @@ export default class ServiceMatches {
 
   async createMatch(body: IMatch) {
     const response = await this.model.create(body);
+    if (body.homeTeam === body.awayTeam) {
+      return { code: 401, message: 'It is not possible to create a match with two equal teams' };
+    }
     const homeTeam = await Teams.findByPk(body.homeTeam);
     const awayTeam = await Teams.findByPk(body.awayTeam);
 
@@ -48,8 +51,9 @@ export default class ServiceMatches {
     return { code: 201, response };
   }
 
-  async finish(id: number) {
-    const response = await this.model.update({ inProgress: false }, { where: { id } });
+  async finish(id: string) {
+    const numberId = Number(id);
+    const response = await this.model.update({ inProgress: false }, { where: { id: numberId } });
     if (!response) return { code: 400, erro: 'ERRO!' };
 
     return { code: 200 };

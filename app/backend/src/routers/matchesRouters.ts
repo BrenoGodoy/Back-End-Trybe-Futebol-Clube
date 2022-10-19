@@ -1,4 +1,5 @@
 import * as express from 'express';
+import verifyToken from '../middlewares/verifyToken';
 import ControllerMatches from '../controllers/matches';
 import ServiceMatches from '../services/matches';
 import Matches from '../database/models/matches';
@@ -11,7 +12,7 @@ router.get('/', (req, res) => {
   matches.getAll(req, res);
 });
 
-router.post('/', (req, res) => {
+router.post('/', verifyToken, (req, res) => {
   matches.createMatch(req, res);
 });
 
