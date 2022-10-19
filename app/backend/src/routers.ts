@@ -11,6 +11,8 @@ import Teams from './database/models/teams';
 import ControllerMatches from './controllers/matches';
 import ServiceMatches from './services/matches';
 import Matches from './database/models/matches';
+import ControllerLeaderboards from './controllers/leaderboards';
+import ServiceLeaderboards from './services/leaderboards';
 
 const router = express.Router();
 
@@ -18,6 +20,7 @@ const useController = new ControllerCreateUser(new ServiceCreateUser(Users));
 const loginValidate = new ControllerLoginValidate(new ServiceLoginValidate(Users));
 const teams = new ControllerTeams(new ServiceTeams(Teams));
 const matches = new ControllerMatches(new ServiceMatches(Matches));
+const leaderboards = new ControllerLeaderboards(new ServiceLeaderboards(Teams));
 
 router.post('/login', loginValidation, (req, res) => {
   useController.login(req, res);
@@ -49,6 +52,10 @@ router.patch('/matches/:id/finish', (req, res) => {
 
 router.patch('/matches/:id', (req, res) => {
   matches.addGoals(req, res);
+});
+
+router.get('/leaderboard/home', (req, res) => {
+  leaderboards.getHome(req, res);
 });
 
 export default router;
