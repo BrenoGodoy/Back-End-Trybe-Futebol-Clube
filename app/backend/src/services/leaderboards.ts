@@ -1,6 +1,6 @@
 import Matches from '../database/models/matches';
 import Teams from '../database/models/teams';
-import businessRulesApply from '../helpers/leaderboardsHelpers';
+import businessRulesApply from '../helpers/leaderboardsHomeHelpers';
 import arraySort from '../helpers/leaderboardSort';
 
 export default class ServiceLeaderboards {
