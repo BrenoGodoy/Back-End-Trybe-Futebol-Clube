@@ -58,4 +58,8 @@ router.get('/leaderboard/home', (req, res) => {
   leaderboards.getHome(req, res);
 });
 
+router.get('/leaderboard/away', (req, res) => {
+  leaderboards.getAway(req, res);
+});
+
 export default router;

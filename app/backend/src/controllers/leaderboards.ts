@@ -11,4 +11,12 @@ export default class ControllerLeaderboards {
 
     return res.status(code).json(response);
   }
+
+  async getAway(req: Request, res: Response) {
+    const { code, response, message } = await this.leaderboards.getAway();
+
+    if (message) return res.status(code).json({ message });
+
+    return res.status(code).json(response);
+  }
 }

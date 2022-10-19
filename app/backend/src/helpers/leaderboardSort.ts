@@ -23,8 +23,8 @@ const tiebreaker = (array: IArray[]) => {
     return 0;
   });
   array.sort((a, b) => {
-    if (!a.goalsBalance) return 0;
-    if (!b.goalsBalance) return 0;
+    if (a.goalsBalance === undefined) return 0;
+    if (b.goalsBalance === undefined) return 0;
     if (a.goalsBalance > b.goalsBalance) return -1;
     if (a.goalsBalance < b.goalsBalance) return 1;
     return 0;
