@@ -1,10 +1,11 @@
 import { sign } from 'jsonwebtoken';
 import 'dotenv/config';
 
-const secret = 'vascodagama';
-
 const generateToken = (pass: string, role: string) => {
-  const token = sign({ pass, role }, secret);
+  const token = sign({ pass, role }, 'vascodagama', {
+    expiresIn: '1d',
+    algorithm: 'HS256',
+  });
   return token;
 };
 
