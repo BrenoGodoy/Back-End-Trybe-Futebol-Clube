@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { verify } from 'jsonwebtoken';
 import ServiceLoginValidate from '../services/loginValidate';
 
 export default class ControllerLoginValidate {
@@ -11,10 +10,6 @@ export default class ControllerLoginValidate {
     if (!authorization) {
       return res.status(401).json({ message: 'Token não informado.' });
     }
-
-    verify(authorization, 'vascodagama', (err) => {
-      if (err) { return res.status(500).json({ message: 'Token inválido.' }); }
-    });
 
     const { code, message, role } = await this.loginValidate.validate(authorization);
 

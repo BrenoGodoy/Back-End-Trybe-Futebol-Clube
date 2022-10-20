@@ -5,6 +5,7 @@ import Users from '../database/models/users';
 import loginValidation from '../middlewares/loginValidation';
 import ControllerLoginValidate from '../controllers/loginValidate';
 import ServiceLoginValidate from '../services/loginValidate';
+import verifyToken from '../middlewares/verifyToken';
 
 const router = express.Router();
 
@@ -15,7 +16,7 @@ router.post('/', loginValidation, (req, res) => {
   useController.login(req, res);
 });
 
-router.get('/validate', (req, res) => {
+router.get('/validate', verifyToken, (req, res) => {
   loginValidate.validate(req, res);
 });
 
