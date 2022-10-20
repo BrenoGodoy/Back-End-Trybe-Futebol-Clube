@@ -3,7 +3,6 @@ import * as chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 import generateToken from '../helpers/token'
-
 import { app } from '../app';
 
 chai.use(chaiHttp);
