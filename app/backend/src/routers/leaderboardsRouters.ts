@@ -7,6 +7,10 @@ const router = express.Router();
 
 const leaderboards = new ControllerLeaderboards(new ServiceLeaderboards(Teams));
 
+router.get('/', (req, res) => {
+  leaderboards.getAll(req, res);
+});
+
 router.get('/home', (req, res) => {
   leaderboards.getHome(req, res);
 });
